@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MA Fabrics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #f4c542;
+      --bg-light: #f9f9f9;
+      --bg-dark: #1c1c1c;
+      --text-light: #333;
+      --text-dark: #f9f9f9;
+      --glass: rgba(255, 255, 255, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.4s, color 0.4s;
+    }
+
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    header {
+      position: relative;
+      padding: 40px 20px;
+      text-align: center;
+      background: linear-gradient(45deg, #f4c542, #ffe49f, #f4c542);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      overflow: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header::before,
+    header::after {
+      content: "";
+      position: absolute;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      filter: blur(50px);
+      z-index: 0;
+      animation: floatBlob 8s ease-in-out infinite;
+    }
+
+    header::before {
+      width: 250px;
+      height: 250px;
+      top: -60px;
+      left: -80px;
+    }
+
+    header::after {
+      width: 200px;
+      height: 200px;
+      bottom: -40px;
+      right: -60px;
+    }
+
+    @keyframes floatBlob {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(20px, 30px); }
+    }
+
+    header img {
+      height: 100px;
+      z-index: 1;
+      position: relative;
+      transition: transform 0.4s ease;
+    }
+
+    header img:hover {
+      transform: scale(1.05);
+    }
+
+    .toggle-mode {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: white;
+      color: var(--primary);
+      border: none;
+      padding: 8px 14px;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 50px;
+    }
+
+    h1 {
+      margin: 10px 0 5px;
+      font-size: 2rem;
+      z-index: 1;
+      position: relative;
+    }
+
+    .about {
+      max-width: 800px;
+      margin: 20px auto 40px;
+      font-size: 1rem;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .container {
+      padding: 30px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .categories {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .category {
+      flex: 1 1 250px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .category img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .category:hover {
+      transform: translateY(-5px);
+    }
+
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      margin-bottom: 40px;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: translateY(100%);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateY(0);
+      z-index: 2;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .testimonial {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      font-style: italic;
+    }
+
+    .contact-form, .contact-info {
+      background-color: #eee;
+      padding: 30px;
+      border-radius: 16px;
+      margin-top: 40px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .contact-form button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    footer {
+      background-color: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      margin-top: 40px;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: white;
+      font-size: 24px;
+      padding: 10px 14px;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button class="toggle-mode" onclick="document.body.classList.toggle('dark-mode')">🌞 / 🌙</button>
+    <img src="MA-logo.png" alt="MA Fabrics Logo" />
+    <h1>MA Fabrics</h1>
+  </header>
+
+  <p class="about">We are a trusted name in the fabric industry, delivering high-quality cotton, denim, and twill to customers across the country. MA Fabrics ensures world-class service with style.</p>
+
+  <div class="container">
+    <h2 class="section-title">Our Products</h2>
+    <div class="slideshow-container">
+      <div class="slide active"><img src="wmremove-transformed(4).jpeg" /></div>
+      <div class="slide"><img src="1.png" /></div>
+      <div class="slide"><img src="2.png" /></div>
+      <div class="slide"><img src="3.png" /></div>
+    </div>
+
+    <h2 class="section-title">Categories</h2>
+    <div class="categories">
+      <div class="category">
+        <img src="cotton.jpg" alt="Cotton">
+        <p>Cotton</p>
+      </div>
+      <div class="category">
+        <img src="denim.jpg" alt="Denim">
+        <p>Denim</p>
+      </div>
+      <div class="category">
+        <img src="twill.jpg" alt="Twill">
+        <p>Twill</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">What Our Customers Say</h2>
+    <div class="testimonials">
+      <div class="testimonial">"Great quality fabrics and amazing service!"</div>
+      <div class="testimonial">"MA Fabrics is my go-to place for bulk cotton orders."</div>
+      <div class="testimonial">"They always deliver on time and the pricing is fair."</div>
+    </div>
+
+    <h2 class="section-title">Contact Us</h2>
+    <div class="contact-info">
+      <p><strong>Phone:</strong> <a href="tel:+8801311934206">01311934206</a></p>
+      <p><strong>Facebook:</strong> <a href="https://www.facebook.com/m.a.fabricsltd" target="_blank">facebook.com/m.a.fabricsltd</a></p>
+      <p><strong>Address:</strong> Rose Marinars Market, Ground Floor, Shop no- Tulip 57-58, Siddikbajar, Dhaka-1000</p>
+    </div>
+
+    <div class="contact-form">
+      <form>
+        <input type="text" placeholder="Your Name" required />
+        <input type="tel" placeholder="Phone Number" required />
+        <textarea rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 MA Fabrics. All rights reserved.
+  </footer>
+
+  <a href="https://wa.me/8801311934206" class="whatsapp-float" title="Chat on WhatsApp">💬</a>
+
+  <script>
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showNextSlide() {
+      slides[slideIndex].classList.remove('active');
+      slideIndex = (slideIndex + 1) % slides.length;
+      slides[slideIndex].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 4000);
+  </script>
+</body>
+</html>
